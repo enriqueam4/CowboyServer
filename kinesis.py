@@ -57,7 +57,6 @@ class KCubeDCServo:
             self.device.StopPolling()
             print("Final Position: " + str(self.device.Position))
 
-
     def print_position(self):
         print(self.device.Position)
 

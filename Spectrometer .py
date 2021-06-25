@@ -11,7 +11,7 @@ from System.IO import *
 from System import String
 from System.Collections.Generic import List
 from System.Threading import AutoResetEvent
-from ctypes import *
+from ct import *
 
 # Add needed dll references
 sys.path.append(os.environ['LIGHTFIELD_ROOT'])

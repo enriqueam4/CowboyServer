@@ -1,5 +1,7 @@
 import torch
 
+a = torch.cuda.FloatTensor([1.])
+
 try:
     device = torch.cuda.get_device_name(0)
     print('Available GPU:', str(device))
