@@ -33,7 +33,12 @@ from Thorlabs.MotionControl.GenericMotorCLI.KCubeMotor import *
 
 
 class KCubeDCServo:
-    def __init__(self, serial):
+
+    def __init__(self, *args):
+        DeviceBuild = DeviceManagerCLI.BuildDeviceList()
+        serials = DeviceManagerCLI.GetDeviceList(27)
+        serial = serials[0]
+        print(serials)
         self.device = Thorlabs.MotionControl.KCube.DCServoCLI.KCubeDCServo.CreateKCubeDCServo(serial)
         self.device.Connect(serial)
         self.device.WaitForSettingsInitialized(5000)
@@ -45,7 +50,7 @@ class KCubeDCServo:
         self.calibrationfile = self.device.GetCalibrationFile()
         self.device.EnableDevice()
 
-    def move_to(self, position):
+    def move_to(self, position, *args):
         try:
             user_input = int(position)
         except ValueError:
@@ -57,30 +62,21 @@ class KCubeDCServo:
             self.device.StopPolling()
             print("Final Position: " + str(self.device.Position))
 
-    def print_position(self):
+    def home(self):
+        self.device.Home(60000)
+
+    def print_position(self, *args):
         print(self.device.Position)
 
-    def return_position(self):
-        return self.device.Position
+    def return_position(self, *args):
+        return Decimal.ToInt32(self.device.Position)
 
 
 def main():
-    DeviceBuild = DeviceManagerCLI.BuildDeviceList()
-    serials = DeviceManagerCLI.GetDeviceList(27)
-    print(serials)
-    devices = []
-
-    if serials is None:
-        print("There has been a problem connecting your devices, please try again")
-        return
-
-    devices = []
-
-    for i in range(len(serials)):
-        device = KCubeDCServo(serials[i])
-        device.move_to("h")
-        device.move_to(100)
-        device.move_to(360)
+    device = KCubeDCServo()
+    a = device.return_position()
+    device.home()
+    print("yeehaw")
 
 
 if __name__ == "__main__":
