@@ -1,13 +1,15 @@
 import os, logging, time
+import cv2
+import numpy as np
 logger = logging.getLogger(__name__)
-class Cowboy:
+class Greeting:
     def __init__(self):
         logger.debug('Here we go')
-        self.yeehaw()
+        self.greet()
         time.sleep(3)
         logger.debug('Loaded')
         
-    def yeehaw(self,*args):
+    def greet(self,*args):
         print("""
 
      ____________________________
@@ -18,5 +20,10 @@ class Cowboy:
 /___________________________/ /     
 \___________________________\/ 
  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+ 
  """)
-        return 'Here\'s ya server'  
+    
+    def garf(self,*args):
+        im = cv2.imload(r'C:\Users\iHR 550\Documents\ModuleServer\mymodules\garf.png')
+        im_ar = np.asarray(im)
+        return im_ar.tolist()
